@@ -25,6 +25,11 @@ class TestApiMonkeyPatch(unittest.TestCase):
 
     @patch('src.Api.Api')
     def test_method_api_put_raises_timeout(self, mock_class):
+        mock_id = Mock()
+        mock_id.return_value = 1
+        mock_data = Mock()
+        mock_data.return_value = {"key": "value"}
+        mock_class.api_put.side_effect = Timeout
         with self.assertRaises(Timeout):
-            mock_class.api_put()
+            mock_class.api_put(mock_id, mock_data)
 
