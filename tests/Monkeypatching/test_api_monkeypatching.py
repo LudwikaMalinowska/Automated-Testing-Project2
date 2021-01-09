@@ -35,6 +35,9 @@ class TestApiMonkeyPatch(unittest.TestCase):
 
     @patch('src.Api.Api')
     def test_method_api_delete_raises_timeout(self, mock_class):
+        mock_id = Mock()
+        mock_id.return_value = 1
+        mock_class.api_delete.side_effect = Timeout
         with self.assertRaises(Timeout):
-            mock_class.api_delete()
+            mock_class.api_delete(mock_id)
 
