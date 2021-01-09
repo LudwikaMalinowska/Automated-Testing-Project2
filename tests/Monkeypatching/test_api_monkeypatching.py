@@ -15,3 +15,8 @@ class TestApiMonkeyPatch(unittest.TestCase):
             with self.assertRaises(Timeout):
                 mock_api.api_get_all()
 
+    @patch('src.Api.Api')
+    def test_method_api_post_raises_timeout(self, mock_class):
+        with self.assertRaises(Timeout):
+            mock_class.api_post()
+
