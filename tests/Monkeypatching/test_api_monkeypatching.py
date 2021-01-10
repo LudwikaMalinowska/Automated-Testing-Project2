@@ -146,6 +146,17 @@ class TestApiMonkeyPatch(unittest.TestCase):
             mock_api.api_post(mock_data)
             mock_api.api_post.assert_called_once()
 
+    def test_method_api_post_assert_that_called(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            mock_data = Mock()
+            mock_data.return_value = {"key": "value"}
+            mock_data2 = Mock()
+            mock_data2.return_value = {"key2": "value2"}
+            mock_api.api_post(mock_data)
+            mock_api.api_post(mock_data2)
+            mock_api.api_post.assert_called()
+
+##### PUT
     @patch('src.Api.Api', autospec=True)
     def test_method_api_put_raises_timeout(self, mock_class):
         mock_id = Mock()
