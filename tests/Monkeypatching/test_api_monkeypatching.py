@@ -36,6 +36,12 @@ class TestApiMonkeyPatch(unittest.TestCase):
             with self.assertRaises(AssertionError):
                 mock_api.api_get_all.assert_not_called()
 
+    def test_method_api_get_all_assert_that_called_once_exception(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            mock_api.api_get_all()
+            mock_api.api_get_all()
+            with self.assertRaises(AssertionError):
+                mock_api.api_get_all.assert_called_once()
 
 
 ##### GET by ID
