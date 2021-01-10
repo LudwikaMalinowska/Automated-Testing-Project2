@@ -62,6 +62,11 @@ class TestApiMonkeyPatch(unittest.TestCase):
 
     def test_method_api_put_assert_that_called_once(self):
         with patch('src.Api.Api') as mock_api:
+            mock_id = Mock()
+            mock_id.return_value = 1
+            mock_data = Mock()
+            mock_data.return_value = {"key": "value"}
+            mock_api.api_put(mock_id, mock_data)
             mock_api.api_put.assert_called_once()
 
     @patch('src.Api.Api')
