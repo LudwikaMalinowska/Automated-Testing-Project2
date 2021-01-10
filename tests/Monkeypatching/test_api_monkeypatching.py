@@ -16,6 +16,12 @@ class TestApiMonkeyPatch(unittest.TestCase):
                 mock_api.api_get_all()
 
     @patch('src.Api.Api')
+    def test_method_api_get_by_id_raises_timeout(self, mock_class):
+        with patch('src.Api.Api') as mock_api:
+            with self.assertRaises(Timeout):
+                mock_api.api_get_by_id()
+
+    @patch('src.Api.Api')
     def test_method_api_post_raises_timeout(self, mock_class):
         mock_data = Mock()
         mock_data.return_value = {"key": "value"}
