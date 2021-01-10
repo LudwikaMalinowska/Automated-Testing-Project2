@@ -77,3 +77,10 @@ class TestApiMonkeyPatch(unittest.TestCase):
         with self.assertRaises(Timeout):
             mock_class.api_delete(mock_id)
 
+    def test_method_api_delete_assert_that_called_once(self):
+        with patch('src.Api.Api') as mock_api:
+            mock_api.api_delete.assert_called_once()
+
+
+if __name__ == '__main__':
+    unittest.main()
