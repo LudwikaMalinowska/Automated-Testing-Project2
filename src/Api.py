@@ -17,7 +17,7 @@ class Api:
         return None
 
     def api_post(self, data):
-        r = requests.get(self.apiLink, data=data)
+        r = requests.post(self.apiLink, data=data)
         if r.status_code == 200:
             return r.json()
         return None
