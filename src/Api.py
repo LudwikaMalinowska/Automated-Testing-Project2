@@ -1,9 +1,13 @@
 import requests
 
 class Api:
+    apiLink = 'https://jsonplaceholder.typicode.com/todos/'
 
     def api_get_all(self):
-        pass
+        r = requests.get(self.apiLink)
+        if r.status_code == 200:
+            return r.json()
+        return None
 
     def api_get_by_id(self, id):
         pass
