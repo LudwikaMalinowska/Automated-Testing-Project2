@@ -75,6 +75,14 @@ class TestApiMonkeyPatch(unittest.TestCase):
             mock_id = Mock()
             mock_id.return_value = 1
             mock_api.api_get_by_id.assert_not_called()
+    
+    def test_method_api_get_by_id_assert_that_not_called_exception(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            mock_id = Mock()
+            mock_id.return_value = 1
+            mock_api.api_get_by_id(mock_id)
+            with self.assertRaises(AssertionError):
+                mock_api.api_get_by_id.assert_not_called()
 
 ##### POST
     @patch('src.Api.Api', autospec=True)
