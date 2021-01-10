@@ -17,6 +17,7 @@ class TestApiMonkeyPatch(unittest.TestCase):
 
     @patch('src.Api.Api')
     def test_method_api_get_all_assert_that_called_once(self, mock_class):
+        mock_class.api_get_all()
         mock_class.api_get_all.assert_called_once()
 
     @patch('src.Api.Api')
