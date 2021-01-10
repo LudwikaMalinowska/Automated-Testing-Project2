@@ -16,6 +16,10 @@ class TestApiMonkeyPatch(unittest.TestCase):
                 mock_api.api_get_all()
 
     @patch('src.Api.Api')
+    def test_method_api_get_all_assert_that_called_once(self, mock_class):
+        mock_class.api_get_all.assert_called_once()
+
+    @patch('src.Api.Api')
     def test_method_api_get_by_id_raises_timeout(self, mock_class):
         with patch('src.Api.Api') as mock_api:
             mock_id = Mock()
