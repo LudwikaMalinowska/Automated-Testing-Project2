@@ -60,6 +60,10 @@ class TestApiMonkeyPatch(unittest.TestCase):
         with self.assertRaises(Timeout):
             mock_class.api_put(mock_id, mock_data)
 
+    def test_method_api_put_assert_that_called_once(self):
+        with patch('src.Api.Api') as mock_api:
+            mock_api.api_put.assert_called_once()
+
     @patch('src.Api.Api')
     def test_method_api_delete_raises_timeout(self, mock_class):
         mock_id = Mock()
