@@ -23,7 +23,7 @@ class Api:
         return None
 
     def api_put(self, id, data):
-        r = requests.get(self.apiLink + id, data=data)
+        r = requests.put(self.apiLink + id, data=data)
         if r.status_code == 200:
             return r.json()
         return None
