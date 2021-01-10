@@ -108,7 +108,7 @@ class TestApiMonkeyPatch(unittest.TestCase):
             mock_api.api_get_by_id(mock_id2)
             with self.assertRaises(AssertionError):
                 mock_api.api_get_by_id.assert_called_once()
-                
+
     def test_method_api_get_by_id_assert_that_called_with_id_1_exception(self):
         with patch('src.Api.Api', autospec=True) as mock_api:
             mock_id = Mock()
@@ -118,6 +118,17 @@ class TestApiMonkeyPatch(unittest.TestCase):
             mock_api.api_get_by_id(mock_id2)
             with self.assertRaises(AssertionError):
                 mock_api.api_get_by_id.assert_called_with(mock_id)
+
+    def test_api_get_by_id_monkeypatch_called_once_with_id_1_exception(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            mock_id = Mock()
+            mock_id.return_value = 1
+            mock_id2 = Mock()
+            mock_id2.return_value = 2
+            mock_api.api_get_by_id(mock_id)
+            mock_api.api_get_by_id(mock_id2)
+            with self.assertRaises(AssertionError):
+                mock_api.api_get_by_id.assert_called_once_with(mock_id)
 
 ##### POST
     @patch('src.Api.Api', autospec=True)
