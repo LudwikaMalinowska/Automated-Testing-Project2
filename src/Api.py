@@ -23,7 +23,10 @@ class Api:
         return None
 
     def api_put(self, id, data):
-        pass
+        r = requests.get(self.apiLink + id, data=data)
+        if r.status_code == 200:
+            return r.json()
+        return None
 
     def api_delete(self, id):
         pass
