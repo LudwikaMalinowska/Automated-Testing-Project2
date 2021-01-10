@@ -70,6 +70,12 @@ class TestApiMonkeyPatch(unittest.TestCase):
             mock_api.api_get_by_id(mock_id2)
             mock_api.api_get_by_id.assert_called()
 
+    def test_method_api_get_by_id_assert_that_not_called(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            mock_id = Mock()
+            mock_id.return_value = 1
+            mock_api.api_get_by_id.assert_not_called()
+
 ##### POST
     @patch('src.Api.Api', autospec=True)
     def test_method_api_post_raises_timeout(self, mock_class):
