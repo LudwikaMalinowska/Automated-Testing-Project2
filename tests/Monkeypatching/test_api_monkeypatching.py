@@ -18,8 +18,11 @@ class TestApiMonkeyPatch(unittest.TestCase):
     @patch('src.Api.Api')
     def test_method_api_get_by_id_raises_timeout(self, mock_class):
         with patch('src.Api.Api') as mock_api:
+            mock_id = Mock()
+            mock_id.return_value = 1
+            mock_api.api_get_by_id.side_effect = Timeout
             with self.assertRaises(Timeout):
-                mock_api.api_get_by_id()
+                mock_api.api_get_by_id(mock_id)
 
     @patch('src.Api.Api')
     def test_method_api_post_raises_timeout(self, mock_class):
