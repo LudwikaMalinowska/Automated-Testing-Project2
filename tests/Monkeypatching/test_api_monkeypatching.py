@@ -26,16 +26,18 @@ class TestApiMonkeyPatch(unittest.TestCase):
             mock_api.api_get_all()
             mock_api.api_get_all.assert_called()
 
-    def test_api_get_all_monkeypatch_not_called(self):
+    def test_method_api_get_all_assert_that_not_called(self):
         with patch('src.Api.Api', autospec=True) as mock_api:
             mock_api.api_get_all.assert_not_called()
 
-    def test_api_get_all_monkeypatch_not_called_exception(self):
+    def test_method_api_get_all_assert_that_not_called_exception(self):
         with patch('src.Api.Api', autospec=True) as mock_api:
             mock_api.api_get_all()
             with self.assertRaises(AssertionError):
                 mock_api.api_get_all.assert_not_called()
-                
+
+
+
 ##### GET by ID
     @patch('src.Api.Api', autospec=True)
     def test_method_api_get_by_id_raises_timeout(self, mock_class):
