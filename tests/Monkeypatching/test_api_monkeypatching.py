@@ -435,6 +435,13 @@ class TestApiMonkeyPatch(unittest.TestCase):
             mock_id.return_value = 1
             mock_api.api_delete(mock_id)
             mock_api.api_delete.assert_called_with(mock_id)
+    
+    def test_method_api_delete_assert_that_called_once_with_id_1(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            mock_id = Mock()
+            mock_id.return_value = 1
+            mock_api.api_delete(mock_id)
+            mock_api.api_delete.assert_called_once_with(mock_id)
 
     def test_method_api_delete_assert_that_not_called_exception(self):
         with patch('src.Api.Api', autospec=True) as mock_api:
