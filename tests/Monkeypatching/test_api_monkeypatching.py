@@ -288,7 +288,7 @@ class TestApiMonkeyPatch(unittest.TestCase):
         with patch('src.Api.Api', autospec=True) as mock_api:
             mock_api.api_put.assert_not_called()
 
-    def test_method_api_put_assert_that_called_with_mock_data_userId_1_title_Lorem(self):
+    def test_method_api_put_assert_that_called_with_id_1_and_mock_data_userId_1_title_Lorem(self):
         with patch('src.Api.Api', autospec=True) as mock_api:
             mock_id = Mock()
             mock_id.return_value = 1
@@ -337,6 +337,28 @@ class TestApiMonkeyPatch(unittest.TestCase):
             mock_api.api_put(mock_id2, mock_data2)
             with self.assertRaises(AssertionError):
                 mock_api.api_put.assert_called_once()
+
+    def test_method_api_put_assert_that_called_with_id_1_and_mock_data_userId_1_title_Lorem_exception(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            mock_id = Mock()
+            mock_id.return_value = 1
+            mock_id2 = Mock()
+            mock_id2.return_value = 2
+            mock_data = Mock()
+            mock_data.return_value = {
+                "userId": 1,
+                "title": "Lorem",
+                "completed": False
+            }
+            mock_data2 = Mock()
+            mock_data2.return_value = {
+                "userId": 2,
+                "title": "Lorem ipsum",
+                "completed": True
+            }
+            mock_api.api_put(mock_id2, mock_data2)
+            with self.assertRaises(AssertionError):
+                mock_api.api_put.assert_called_with(mock_id, mock_data)
 
 
 ##### DELETE
