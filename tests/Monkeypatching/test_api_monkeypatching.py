@@ -262,6 +262,30 @@ class TestApiMonkeyPatch(unittest.TestCase):
             mock_api.api_put(mock_id, mock_data)
             mock_api.api_put.assert_called_once()
 
+    def test_method_api_put_assert_that_called(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            mock_id = Mock()
+            mock_id.return_value = 1
+            mock_id2 = Mock()
+            mock_id2.return_value = 2
+            mock_data = Mock()
+            mock_data.return_value = {
+                "userId": 1,
+                "title": "Lorem",
+                "completed": False
+            }
+            mock_data2 = Mock()
+            mock_data2.return_value = {
+                "userId": 2,
+                "title": "Lorem ipsum",
+                "completed": True
+            }
+            mock_api.api_put(mock_id, mock_data)
+            mock_api.api_put(mock_id2, mock_data2)
+            mock_api.api_put.assert_called()
+
+
+##### DELETE
     @patch('src.Api.Api', autospec=True)
     def test_method_api_delete_raises_timeout(self, mock_class):
         mock_id = Mock()
