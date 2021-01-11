@@ -191,6 +191,24 @@ class TestApiMonkeyPatch(unittest.TestCase):
             mock_api.api_post(mock_data2)
             with self.assertRaises(AssertionError):
                 mock_api.api_post.assert_called_once()
+
+    def test_method_api_post_assert_that_called_with_mock_data_userId_1_title_Lorem_exception(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            mock_data = Mock()
+            mock_data.return_value = {
+                "userId": 1,
+                "title": "Lorem",
+                "completed": False
+                }
+            mock_data2 = Mock()
+            mock_data2.return_value = {
+                "userId": 2,
+                "title": "Lorem ipsum",
+                "completed": True
+                }
+            mock_api.api_post(mock_data2)
+            with self.assertRaises(AssertionError):
+                mock_api.api_post.assert_called_with(mock_data)
 ##### PUT
     @patch('src.Api.Api', autospec=True)
     def test_method_api_put_raises_timeout(self, mock_class):
