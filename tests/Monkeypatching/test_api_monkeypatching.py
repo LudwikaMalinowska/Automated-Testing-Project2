@@ -414,6 +414,13 @@ class TestApiMonkeyPatch(unittest.TestCase):
             with self.assertRaises(TypeError):
                 mock_api.api_put()
 
+    def test_method_api_put_only_one_parameter_exception(self):
+        with patch('src.Api.Api') as mock_api:
+            mock_id = Mock()
+            mock_id.return_value = 1
+            with self.assertRaises(TypeError):
+                mock_api.api_put(mock_id)
+
 
 
 
