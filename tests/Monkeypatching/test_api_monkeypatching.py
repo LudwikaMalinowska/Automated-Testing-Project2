@@ -162,6 +162,17 @@ class TestApiMonkeyPatch(unittest.TestCase):
             mock_data.return_value = {"key": "value"}
             mock_api.api_post.assert_not_called()
 
+    def test_method_api_post_assert_that_called_with_mock_data_userId_1_title_Lorem(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            mock_data = Mock()
+            mock_data.return_value = {
+                "userId": 1,
+                "title": "Lorem",
+                "completed": False
+                }
+            mock_api.api_post(mock_data)
+            mock_api.api_post.assert_called_with(mock_data)
+
     def test_method_api_post_assert_that_not_called_exception(self):
         with patch('src.Api.Api', autospec=True) as mock_api:
             mock_data = Mock()
