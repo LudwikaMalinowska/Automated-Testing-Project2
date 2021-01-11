@@ -284,6 +284,10 @@ class TestApiMonkeyPatch(unittest.TestCase):
             mock_api.api_put(mock_id2, mock_data2)
             mock_api.api_put.assert_called()
 
+    def test_api_put_monkeypatch_not_called(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            mock_api.api_put.assert_not_called()
+
 
 ##### DELETE
     @patch('src.Api.Api', autospec=True)
