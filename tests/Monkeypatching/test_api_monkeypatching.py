@@ -301,6 +301,19 @@ class TestApiMonkeyPatch(unittest.TestCase):
             mock_api.api_put(mock_id, mock_data)
             mock_api.api_put.assert_called_with(mock_id, mock_data)
 
+    def test_method_api_put_assert_that_called_once_with_id_1_and_mock_data_userId_1_title_Lorem(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            mock_id = Mock()
+            mock_id.return_value = 1
+            mock_data = Mock()
+            mock_data.return_value = {
+                "userId": 1,
+                "title": "Lorem",
+                "completed": False
+            }
+            mock_api.api_put(mock_id, mock_data)
+            mock_api.api_put.assert_called_once_with(mock_id, mock_data)
+
     def test_method_api_put_assert_that_not_called_exception(self):
         with patch('src.Api.Api', autospec=True) as mock_api:
             mock_id = Mock()
