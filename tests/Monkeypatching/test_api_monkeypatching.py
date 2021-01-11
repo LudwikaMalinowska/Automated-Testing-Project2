@@ -373,6 +373,29 @@ class TestApiMonkeyPatch(unittest.TestCase):
             with self.assertRaises(AssertionError):
                 mock_api.api_put.assert_called_with(mock_id, mock_data)
 
+    def test_method_api_put_assert_that_called_once_with_id_1_and_mock_data_userId_1_title_Lorem_exception(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            mock_id = Mock()
+            mock_id.return_value = 1
+            mock_id2 = Mock()
+            mock_id2.return_value = 2
+            mock_data = Mock()
+            mock_data.return_value = {
+                "userId": 1,
+                "title": "Lorem",
+                "completed": False
+            }
+            mock_data2 = Mock()
+            mock_data2.return_value = {
+                "userId": 2,
+                "title": "Lorem ipsum",
+                "completed": True
+            }
+            mock_api.api_put(mock_id, mock_data)
+            mock_api.api_put(mock_id2, mock_data2)
+            with self.assertRaises(AssertionError):
+                mock_api.api_put.assert_called_once_with(mock_id, mock_data)
+
 
 ##### DELETE
     @patch('src.Api.Api', autospec=True)
