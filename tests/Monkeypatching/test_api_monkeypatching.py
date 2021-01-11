@@ -44,6 +44,9 @@ class TestApiMonkeyPatch(unittest.TestCase):
                 mock_api.api_get_all.assert_called_once()
 
 
+
+
+
 ##### GET by ID
     @patch('src.Api.Api', autospec=True)
     def test_method_api_get_by_id_raises_timeout(self, mock_class):
@@ -129,6 +132,11 @@ class TestApiMonkeyPatch(unittest.TestCase):
             mock_api.api_get_by_id(mock_id2)
             with self.assertRaises(AssertionError):
                 mock_api.api_get_by_id.assert_called_once_with(mock_id)
+
+    def test_method_api_get_by_id_no_parameter_exception(self):
+        with patch('src.Api.Api') as mock_api:
+            with self.assertRaises(TypeError):
+                mock_api.api_get_by_id()
 
 ##### POST
     @patch('src.Api.Api', autospec=True)
