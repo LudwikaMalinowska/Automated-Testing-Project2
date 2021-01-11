@@ -288,6 +288,20 @@ class TestApiMonkeyPatch(unittest.TestCase):
         with patch('src.Api.Api', autospec=True) as mock_api:
             mock_api.api_put.assert_not_called()
 
+    def test_method_api_put_assert_that_not_called_exception(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            mock_id = Mock()
+            mock_id.return_value = 1
+            mock_data = Mock()
+            mock_data.return_value = {
+                "userId": 1,
+                "title": "Lorem",
+                "completed": False
+            }
+            mock_api.api_put(mock_id, mock_data)
+            with self.assertRaises(AssertionError):
+                mock_api.api_put.assert_not_called()
+
 
 
 
