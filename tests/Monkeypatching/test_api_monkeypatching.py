@@ -415,6 +415,9 @@ class TestApiMonkeyPatch(unittest.TestCase):
                 mock_api.api_post()
 
 
+
+
+
 ##### DELETE
     @patch('src.Api.Api', autospec=True)
     def test_method_api_delete_raises_timeout(self, mock_class):
@@ -504,7 +507,7 @@ class TestApiMonkeyPatch(unittest.TestCase):
     def test_method_api_delete_no_parameter_exception(self):
         with patch('src.Api.Api', autospec=True) as mock_api:
             with self.assertRaises(TypeError):
-                mock_api.api_post()
+                mock_api.api_delete()
 
 
 
