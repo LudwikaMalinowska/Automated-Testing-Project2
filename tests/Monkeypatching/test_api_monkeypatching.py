@@ -413,6 +413,16 @@ class TestApiMonkeyPatch(unittest.TestCase):
             mock_api.api_delete(mock_id)
             mock_api.api_delete.assert_called_once()
 
+    def test_method_api_delete_assert_that_called(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            mock_id = Mock()
+            mock_id.return_value = 1
+            mock_id2 = Mock()
+            mock_id2.return_value = 2
+            mock_api.api_delete(mock_id)
+            mock_api.api_delete(mock_id2)
+            mock_api.api_delete.assert_called()
+
 
 if __name__ == '__main__':
     unittest.main()
