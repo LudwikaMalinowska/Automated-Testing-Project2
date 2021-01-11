@@ -501,6 +501,11 @@ class TestApiMonkeyPatch(unittest.TestCase):
             with self.assertRaises(AssertionError):
                 mock_api.api_delete.assert_called_once_with(mock_id)
 
+    def test_method_api_delete_no_parameter_exception(self):
+        with patch('src.Api.Api') as mock_api:
+            with self.assertRaises(TypeError):
+                mock_api.api_post()
+
 
 
 if __name__ == '__main__':
