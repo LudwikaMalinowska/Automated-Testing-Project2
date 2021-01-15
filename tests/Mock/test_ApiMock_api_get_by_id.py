@@ -67,11 +67,11 @@ class TestApi(unittest.TestCase):
 
         assert_that(response["status_code"]).is_equal_to(200)
 
-    def test_method_api_get_all_assert_that_is_instance_of_Api(self):
+    def test_method_api_get_all_assert_that_response_is_instance_of_dict(self):
         self.temp.api_get_by_id = Mock()
         self.temp.api_get_by_id.return_value = {"data": todos[0], "status_code": 200}
         response = self.temp.api_get_by_id(0)
-        
+
         assert_that(response).is_instance_of(dict)
 
     def test_method_api_get_by_id_assert_that_raises_timeout_exception(self):
