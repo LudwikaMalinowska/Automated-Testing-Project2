@@ -60,6 +60,15 @@ class TestApi(unittest.TestCase):
 
         assert_that(response).contains_key("userId", "id", "title", "completed")
 
+    def test_method_api_get_by_id_assert_that(self):
+        self.temp.api_get_by_id = Mock()
+        self.temp.api_get_by_id.return_value = {"data": todos[0], "status_code": 200}
+        response = self.temp.api_get_by_id(0)
+
+        assert_that(response["status_code"]).is_equal_to(200)
+
+
+
     def tearDown(self):
         self.temp = None
 
