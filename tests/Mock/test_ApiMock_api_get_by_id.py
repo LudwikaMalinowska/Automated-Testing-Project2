@@ -53,6 +53,13 @@ class TestApi(unittest.TestCase):
 
         assert_that(response).contains_key("completed")
 
+    def test_method_api_get_by_id_assert_that_response_contains_all_the_keys_userId_id_title_completed(self):
+        self.temp.api_get_by_id = Mock()
+        self.temp.api_get_by_id.return_value = todos[0]
+        response = self.temp.api_get_by_id(0)
+
+        assert_that(response).contains_key("userId", "id", "title", "completed")
+
     def tearDown(self):
         self.temp = None
 
