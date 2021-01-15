@@ -1,5 +1,8 @@
 import unittest
 from unittest.mock import Mock, patch
+
+from requests import Timeout
+
 from src.Api import Api
 from tests.Mock.todos import todos
 
@@ -45,6 +48,15 @@ class TestApi(unittest.TestCase):
         expected_keys = ["userId", "id", "title", "completed"]
 
         self.assertListEqual(mock_keys, expected_keys)
+
+    def test_method_api_get_all_assert_that_raises_timeout_exception(self):
+        self.temp.api_get_all = Mock()
+        self.temp.api_get_all.status_code = 408
+        self.temp.api_get_all.side_effect = Timeout
+
+        self.assertRaises(Timeout, self.temp.api_get_all)
+
+
 
 
 
