@@ -56,6 +56,15 @@ class TestApi(unittest.TestCase):
 
         self.assertRaises(Timeout, self.temp.api_get_all)
 
+    def test_method_api_get_all_assert_that_wrong_status_code_exception(self):
+        self.temp.api_get_all = Mock()
+        self.temp.api_get_all.status_code = 408
+        self.temp.api_get_all.side_effect = Timeout
+
+        with self.assertRaises(AssertionError):
+            self.assertEqual(self.temp.api_get_all.status_code, 200)
+
+
 
 
 
