@@ -25,12 +25,12 @@ class TestApi(unittest.TestCase):
         result = self.temp.api_get_all()
         self.assertEqual(result["data"], todos)
 
-    def test_method_api_get_all_assert_that_1st_record_of_responce_equal_expected_record(self):
+    def test_method_api_get_all_assert_that_1st_record_of_response_equal_expected_record(self):
         self.temp.api_get_all = Mock()
-        self.temp.api_get_all.return_value = todos
+        self.temp.api_get_all.return_value = {"data": todos, "status_code": 200}
         result = self.temp.api_get_all()
 
-        mock_first_todo = result[0]
+        mock_first_todo = result["data"][0]
         first_todo = {
             "userId": 1,
             "id": 1,
