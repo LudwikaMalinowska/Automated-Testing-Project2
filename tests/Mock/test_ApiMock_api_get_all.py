@@ -51,10 +51,10 @@ class TestApi(unittest.TestCase):
 
     def test_method_api_get_all_assert_that_status_code_200(self):
         self.temp.api_get_all = Mock()
-        self.temp.api_get_all.return_value = todos
-        self.temp.api_get_all.status_code = 200
+        self.temp.api_get_all.return_value = {"data": todos, "status_code": 200}
+        response = self.temp.api_get_all()
 
-        self.assertEqual(self.temp.api_get_all.status_code, 200)
+        self.assertEqual(response["status_code"], 200)
 
     def test_method_api_get_all_assert_that_side_effect_is_Timeout(self):
         self.temp.api_get_all = Mock()
