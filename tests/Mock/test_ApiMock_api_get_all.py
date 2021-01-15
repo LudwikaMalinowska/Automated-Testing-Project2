@@ -72,8 +72,7 @@ class TestApi(unittest.TestCase):
 
     def test_method_api_get_all_assert_that_dont_raise_timeout(self):
         self.temp.api_get_all = Mock()
-        self.temp.api_get_all.status_code = 200
-        self.temp.api_get_all.return_value = todos
+        self.temp.api_get_all.return_value = {"data": todos, "status_code": 200}
 
         with self.assertRaises(AssertionError):
             self.assertRaises(Timeout, self.temp.api_get_all)
