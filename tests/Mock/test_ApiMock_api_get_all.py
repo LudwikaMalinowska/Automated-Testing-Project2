@@ -63,6 +63,15 @@ class TestApi(unittest.TestCase):
 
         self.assertEqual(self.temp.api_get_all.side_effect, Timeout)
 
+    def test_method_api_get_all_assert_that_is_instance_of_Api(self):
+        self.temp.api_get_all = Mock()
+        self.temp.api_get_all.return_value = todos
+        self.temp.api_get_all.status_code = 200
+
+        self.assertIsInstance(self.temp.api_get_all.return_value, list)
+
+
+
     def test_method_api_get_all_assert_that_dont_raise_timeout(self):
         self.temp.api_get_all = Mock()
         self.temp.api_get_all.status_code = 200
