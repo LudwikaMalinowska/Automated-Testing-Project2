@@ -33,10 +33,10 @@ class TestApi(unittest.TestCase):
 
     def test_method_api_get_by_id_assert_that_response_contains_key_id(self):
         self.temp.api_get_by_id = Mock()
-        self.temp.api_get_by_id.return_value = todos[0]
+        self.temp.api_get_by_id.return_value = {"data": todos[0], "status_code": 200}
         response = self.temp.api_get_by_id(0)
 
-        assert_that(response).contains_key("id")
+        assert_that(response["data"]).contains_key("id")
 
     def test_method_api_get_by_id_assert_that_response_contains_key_title(self):
         self.temp.api_get_by_id = Mock()
