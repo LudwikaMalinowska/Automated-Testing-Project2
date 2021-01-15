@@ -56,7 +56,7 @@ class TestApi(unittest.TestCase):
 
         self.assertEqual(self.temp.api_get_all.status_code, 200)
 
-    def test_method_api_get_all_assert_that_raises_timeout_exception(self):
+    def test_method_api_get_all_assert_that_side_effect_is_Timeout(self):
         self.temp.api_get_all = Mock()
         self.temp.api_get_all.status_code = 408
         self.temp.api_get_all.side_effect = Timeout
@@ -85,11 +85,6 @@ class TestApi(unittest.TestCase):
 
         with self.assertRaises(AssertionError):
             self.assertEqual(self.temp.api_get_all.status_code, 200)
-
-
-
-
-
 
     def tearDown(self):
         self.temp = None
