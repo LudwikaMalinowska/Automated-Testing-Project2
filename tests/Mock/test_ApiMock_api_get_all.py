@@ -13,10 +13,10 @@ class TestApi(unittest.TestCase):
 
     def test_method_api_get_all_assert_that_result_length_equal_200(self):
         self.temp.api_get_all = Mock()
-        self.temp.api_get_all.return_value = todos
+        self.temp.api_get_all.return_value = {"data": todos, "status_code": 200}
 
         result = self.temp.api_get_all()
-        self.assertEqual(len(result), 200)
+        self.assertEqual(len(result["data"]), 200)
 
     def test_method_api_get_all_assert_that_result_equal_todos(self):
         self.temp.api_get_all = Mock()
