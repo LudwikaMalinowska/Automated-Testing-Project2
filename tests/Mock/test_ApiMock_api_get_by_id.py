@@ -25,6 +25,13 @@ class TestApi(unittest.TestCase):
 
         assert_that(response).is_equal_to(first_todo)
 
+    def test_method_api_get_by_id_assert_that_response_contains_key_userId(self):
+        self.temp.api_get_by_id = Mock()
+        self.temp.api_get_by_id.return_value = todos[0]
+        response = self.temp.api_get_by_id(0)
+
+        assert_that(response).contains_key("userId")
+
     def tearDown(self):
         self.temp = None
 
