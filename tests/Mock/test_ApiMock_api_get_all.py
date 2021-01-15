@@ -49,6 +49,13 @@ class TestApi(unittest.TestCase):
 
         self.assertListEqual(mock_keys, expected_keys)
 
+    def test_method_api_get_all_assert_that_status_code_200(self):
+        self.temp.api_get_all = Mock()
+        self.temp.api_get_all.return_value = todos
+        self.temp.api_get_all.status_code = 200
+
+        self.assertEqual(self.temp.api_get_all.status_code, 200)
+
     def test_method_api_get_all_assert_that_raises_timeout_exception(self):
         self.temp.api_get_all = Mock()
         self.temp.api_get_all.status_code = 408
