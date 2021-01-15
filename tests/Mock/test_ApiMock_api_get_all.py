@@ -44,7 +44,7 @@ class TestApi(unittest.TestCase):
         mock_keys = list(result[0].keys())
         expected_keys = ["userId", "id", "title", "completed"]
 
-        self.assertEqual(mock_keys, expected_keys)
+        self.assertListEqual(mock_keys, expected_keys)
 
 
 
