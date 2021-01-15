@@ -67,6 +67,13 @@ class TestApi(unittest.TestCase):
 
         assert_that(response["status_code"]).is_equal_to(200)
 
+    def test_method_api_get_by_id_assert_that_raises_timeout_exception(self):
+        self.temp.api_get_by_id = Mock()
+        self.temp.api_get_by_id.return_value = {"status_code": 408}
+        self.temp.api_get_by_id.side_effect = Timeout
+
+        assert_that(self.temp.api_get_by_id).raises(Timeout).when_called_with(0)
+
     def test_method_api_get_by_id_assert_that_response_dont_have_status_code_200_exception(self):
         self.temp.api_get_by_id = Mock()
         self.temp.api_get_by_id.return_value = {"status_code": 408}
