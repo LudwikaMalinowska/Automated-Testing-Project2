@@ -22,9 +22,10 @@ class TestApi(unittest.TestCase):
         }
         self.temp.api_put.return_value = {"put_id": todo_id,
                                             "put_data": todo, "status_code": 200}
-        response = self.temp.api_put(todo)
+        response = self.temp.api_put(todo_id, todo)
 
         assert_that(response["status_code"]).is_equal_to(200)
+
 
 
 
