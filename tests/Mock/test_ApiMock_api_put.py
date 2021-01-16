@@ -26,6 +26,18 @@ class TestApi(unittest.TestCase):
 
         assert_that(response["status_code"]).is_equal_to(200)
 
+    def test_method_api_post_assert_that_response_status_code_is_not_200(self):
+        self.temp.api_put = Mock()
+        todo_id = 1
+        todo = {
+            "userId": 1,
+            "title": "Lorem",
+            "completed": False
+        }
+        self.temp.api_put.return_value = {"status_code": 408}
+        response = self.temp.api_put(todo_id, todo)
+
+        assert_that(response["status_code"]).is_not_equal_to(200)
 
 
 
