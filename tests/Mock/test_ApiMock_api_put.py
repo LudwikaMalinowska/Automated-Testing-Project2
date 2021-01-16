@@ -53,7 +53,7 @@ class TestApi(unittest.TestCase):
 
         assert_that(response["put_data"]).is_equal_to(todo)
 
-    def test_method_api_put_assert_that_response_returns_posted_data_doesnt_contain_key_id(self):
+    def test_method_api_put_assert_that_response_put_data_doesnt_contain_key_id(self):
         self.temp.api_put = Mock()
         todo_id = 1
         todo = {
@@ -66,6 +66,20 @@ class TestApi(unittest.TestCase):
         response = self.temp.api_put(todo_id, todo)
 
         assert_that(response["put_data"]).does_not_contain_key("id")
+
+    def test_method_api_post_assert_that_response_put_data_contain_key_userId(self):
+        self.temp.api_put = Mock()
+        todo_id = 1
+        todo = {
+            "userId": 1,
+            "title": "Lorem",
+            "completed": False
+        }
+        self.temp.api_put.return_value = {"put_id": todo_id,
+                                          "put_data": todo, "status_code": 200}
+        response = self.temp.api_put(todo_id, todo)
+
+        assert_that(response["put_data"]).contains_key("userId")
 
 
 
