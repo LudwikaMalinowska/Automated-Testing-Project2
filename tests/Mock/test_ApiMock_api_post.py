@@ -37,6 +37,18 @@ class TestApi(unittest.TestCase):
 
         assert_that(response["posted_data"]).is_equal_to(todo)
 
+    def test_method_api_post_assert_that_response_returns_posted_data_doesnt_contain_key_id(self):
+        self.temp.api_post = Mock()
+        todo = {
+            "userId": 1,
+            "title": "Lorem",
+            "completed": False
+        }
+        self.temp.api_post.return_value = {"posted_data": todo, "status_code": 200}
+        response = self.temp.api_post(todo)
+
+        assert_that(response["posted_data"]).does_not_contain_key("id")
+
     def test_method_api_post_assert_that_response_status_code_is_not_200_exception(self):
         self.temp.api_post = Mock()
         todo = {
