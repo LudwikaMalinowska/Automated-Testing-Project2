@@ -97,6 +97,18 @@ class TestApi(unittest.TestCase):
 
         assert_that(response["posted_data"]).contains_key("userId", "title", "completed")
 
+    def test_method_api_post_assert_that_response_is_instance_of_dict(self):
+        self.temp.api_post = Mock()
+        todo = {
+            "userId": 1,
+            "title": "Lorem",
+            "completed": False
+        }
+        self.temp.api_post.return_value = {"posted_data": todo, "status_code": 200}
+        response = self.temp.api_post(todo)
+
+        assert_that(response).is_instance_of(dict)
+
     def test_method_api_post_assert_that_response_status_code_is_not_200_exception(self):
         self.temp.api_post = Mock()
         todo = {
