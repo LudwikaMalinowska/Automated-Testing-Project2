@@ -88,6 +88,14 @@ class TestApi(unittest.TestCase):
         with self.assertRaises(Exception):
             assert_that(response["status_code"]).is_equal_to(200)
 
+    def test_method_api_bet_by_id_assert_that_response_returns_ValueError_when_called_with_id_0_exception(self):
+        self.temp.api_get_by_id = Mock()
+        todo_id = 0
+        self.temp.api_get_by_id.return_value = {"status_code": 408}
+        self.temp.api_get_by_id.side_effect = ValueError
+
+        assert_that(self.temp.api_get_by_id).raises(ValueError).when_called_with(todo_id)
+
 
 
     def tearDown(self):
