@@ -104,6 +104,14 @@ class TestApi(unittest.TestCase):
 
         assert_that(self.temp.api_get_by_id).raises(ValueError).when_called_with(todo_id)
 
+    def test_method_api_bet_by_id_assert_that_response_returns_TypeError_when_called_with_id_0_exception(self):
+        self.temp.api_get_by_id = Mock()
+        todo_id = "1"
+        self.temp.api_get_by_id.return_value = {"status_code": 408}
+        self.temp.api_get_by_id.side_effect = TypeError
+
+        assert_that(self.temp.api_get_by_id).raises(TypeError).when_called_with(todo_id)
+
 
     def tearDown(self):
         self.temp = None
