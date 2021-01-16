@@ -81,6 +81,20 @@ class TestApi(unittest.TestCase):
 
         assert_that(response["put_data"]).contains_key("userId")
 
+    def test_method_api_post_assert_that_response_put_data_contain_key_title(self):
+        self.temp.api_put = Mock()
+        todo_id = 1
+        todo = {
+            "userId": 1,
+            "title": "Lorem",
+            "completed": False
+        }
+        self.temp.api_put.return_value = {"put_id": todo_id,
+                                          "put_data": todo, "status_code": 200}
+        response = self.temp.api_put(todo_id, todo)
+
+        assert_that(response["put_data"]).contains_key("title")
+
 
 
     def tearDown(self):
