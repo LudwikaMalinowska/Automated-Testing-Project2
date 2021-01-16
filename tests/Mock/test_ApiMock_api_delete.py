@@ -44,6 +44,7 @@ class TestApi(unittest.TestCase):
         self.temp.api_delete = Mock()
         todo_id = 1
         self.temp.api_delete.return_value = {"delete_id": todo_id,
+                                             "deleted_data": todos[todo_id],
                                              "status_code": 200}
         response = self.temp.api_delete(todo_id)
 
