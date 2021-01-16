@@ -100,6 +100,16 @@ class TestApi(unittest.TestCase):
 
         assert_that(response["deleted_data"]).contains_key("completed")
 
+    def test_method_api_delete_assert_that_response_deleted_data_contain_all_keys_userId_id_title_completed(self):
+        self.temp.api_delete = Mock()
+        todo_id = 1
+        self.temp.api_delete.return_value = {"delete_id": todo_id,
+                                             "deleted_data": todos[todo_id],
+                                             "status_code": 200}
+        response = self.temp.api_delete(todo_id)
+
+        assert_that(response["deleted_data"]).contains_key("userId", "id", "title", "completed")
+
 
 
     def test_method_api_delete_assert_that_response_returns_Timeout_exception(self):
