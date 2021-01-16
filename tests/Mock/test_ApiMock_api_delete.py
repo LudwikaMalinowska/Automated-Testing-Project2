@@ -38,6 +38,14 @@ class TestApi(unittest.TestCase):
 
         assert_that(response).is_instance_of(dict)
 
+    def test_method_api_delete_assert_that_response_has_key_delete_id_1(self):
+        self.temp.api_delete = Mock()
+        todo_id = 1
+        self.temp.api_delete.return_value = {"delete_id": todo_id,
+                                             "status_code": 200}
+        response = self.temp.api_delete(todo_id)
+
+        assert_that(response).has_delete_id(1)
 
     def tearDown(self):
         self.temp = None
