@@ -29,6 +29,15 @@ class TestApi(unittest.TestCase):
 
         assert_that(response["status_code"]).is_not_equal_to(200)
 
+    def test_method_api_delete_assert_that_response_is_instance_of_dict(self):
+        self.temp.api_delete = Mock()
+        todo_id = 1
+        self.temp.api_delete.return_value = {"put_id": todo_id,
+                                             "status_code": 200}
+        response = self.temp.api_delete(todo_id)
+
+        assert_that(response).is_instance_of(dict)
+
 
     def tearDown(self):
         self.temp = None
