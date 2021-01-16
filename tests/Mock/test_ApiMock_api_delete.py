@@ -47,6 +47,14 @@ class TestApi(unittest.TestCase):
 
         assert_that(response).has_delete_id(1)
 
+    def test_method_api_delete_assert_that_response_returns_Timeout_exception(self):
+        self.temp.api_delete = Mock()
+        todo_id = 1
+        self.temp.api_delete.return_value = {"status_code": 408}
+        self.temp.api_delete.side_effect = Timeout
+
+        assert_that(self.temp.api_delete).raises(Timeout).when_called_with(todo_id)
+
     def tearDown(self):
         self.temp = None
 
