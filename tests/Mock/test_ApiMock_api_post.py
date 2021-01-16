@@ -133,6 +133,18 @@ class TestApi(unittest.TestCase):
 
         assert_that(response["posted_data"]).has_userId(1)
 
+    def test_method_api_post_assert_that_response_posted_data_key_completed_is_false(self):
+        self.temp.api_post = Mock()
+        todo = {
+            "userId": 1,
+            "title": "Lorem",
+            "completed": False
+        }
+        self.temp.api_post.return_value = {"posted_data": todo, "status_code": 200}
+        response = self.temp.api_post(todo)
+
+        assert_that(response["posted_data"]).has_completed(False)
+
     def test_method_api_post_assert_that_response_status_code_is_not_200_exception(self):
         self.temp.api_post = Mock()
         todo = {
