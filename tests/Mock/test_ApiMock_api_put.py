@@ -137,6 +137,20 @@ class TestApi(unittest.TestCase):
 
         assert_that(response).is_instance_of(dict)
 
+    def test_method_api_put_assert_that_response_put_data_key_title_is_Lorem(self):
+        self.temp.api_put = Mock()
+        todo_id = 1
+        todo = {
+            "userId": 1,
+            "title": "Lorem",
+            "completed": False
+        }
+        self.temp.api_put.return_value = {"put_id": todo_id,
+                                          "put_data": todo, "status_code": 200}
+        response = self.temp.api_put(todo_id, todo)
+
+        assert_that(response["put_data"]).has_title("Lorem")
+
 
 
     def tearDown(self):
