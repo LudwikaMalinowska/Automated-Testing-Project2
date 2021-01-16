@@ -67,7 +67,7 @@ class TestApi(unittest.TestCase):
 
         assert_that(response["put_data"]).does_not_contain_key("id")
 
-    def test_method_api_post_assert_that_response_put_data_contain_key_userId(self):
+    def test_method_api_put_assert_that_response_put_data_contain_key_userId(self):
         self.temp.api_put = Mock()
         todo_id = 1
         todo = {
