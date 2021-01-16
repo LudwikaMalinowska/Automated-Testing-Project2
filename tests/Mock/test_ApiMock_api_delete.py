@@ -150,8 +150,6 @@ class TestApi(unittest.TestCase):
 
         assert_that(response["deleted_data"]).has_completed(False)
 
-
-
     def test_method_api_delete_assert_that_response_returns_Timeout_exception(self):
         self.temp.api_delete = Mock()
         todo_id = 1
@@ -159,6 +157,14 @@ class TestApi(unittest.TestCase):
         self.temp.api_delete.side_effect = Timeout
 
         assert_that(self.temp.api_delete).raises(Timeout).when_called_with(todo_id)
+
+    def test_method_api_delete_assert_that_response_returns_ValueError_when_called_with_id_0_exception(self):
+        self.temp.api_delete = Mock()
+        todo_id = 0
+        self.temp.api_delete.return_value = {"status_code": 408}
+        self.temp.api_delete.side_effect = ValueError
+
+        assert_that(self.temp.api_delete).raises(ValueError).when_called_with(todo_id)
 
     def tearDown(self):
         self.temp = None
