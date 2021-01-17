@@ -315,6 +315,18 @@ class TestApiMonkeyPatch(unittest.TestCase):
             mock_api.api_put.side_effect = ValueError
     
             assert_that(mock_api.api_put).raises(ValueError).when_called_with(todo_id, todo)
+    
+    def test_method_api_put_assert_that_response_returns_ValueError_when_called_with_obj_without_key_userId_exception(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            todo_id = 1
+            todo = {
+                "title": "Lorem",
+                "completed": False
+            }
+            mock_api.api_put.return_value = {"status_code": 408}
+            mock_api.api_put.side_effect = ValueError
+    
+            assert_that(mock_api.api_put).raises(ValueError).when_called_with(todo_id, todo)
 
 
 if __name__ == '__main__':
