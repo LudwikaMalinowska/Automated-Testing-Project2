@@ -18,10 +18,21 @@ class TestApi(unittest.TestCase):
             "title": "Lorem",
             "completed": False
         }
-        self.temp.api_post = MagicMock(return_value={"data": post_todo, "status_code": 200})
+        self.temp.api_post = MagicMock(return_value={"posted_data": post_todo, "status_code": 200})
         response = self.temp.api_post(post_todo)
 
         assert_that(response).has_status_code(200)
+
+    def test_method_api_post_assert_that_response_returns_posted_data(self):
+        post_todo = {
+            "userId": 1,
+            "title": "Lorem",
+            "completed": False
+        }
+        self.temp.api_post = MagicMock(return_value={"posted_data": post_todo, "status_code": 200})
+        response = self.temp.api_post(post_todo)
+
+        assert_that(response["posted_data"]).is_equal_to(post_todo)
 
     def tearDown(self):
         self.temp = None
