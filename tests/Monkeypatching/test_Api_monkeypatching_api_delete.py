@@ -93,6 +93,16 @@ class TestApiMonkeyPatch(unittest.TestCase):
             response = mock_api.api_delete(todo_id)
 
             assert_that(response).has_delete_id(1)
+    
+    def test_method_api_delete_assert_that_response_returns_deleted_data(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            todo_id = 1
+            mock_api.api_delete.return_value = {"delete_id": todo_id,
+                                                "deleted_data": todos[todo_id - 1],
+                                                "status_code": 200}
+            response = mock_api.api_delete(todo_id)
+    
+            assert_that(response["deleted_data"]).is_equal_to(todos[0])
 
     def test_method_api_delete_assert_that_not_called_exception(self):
         with patch('src.Api.Api', autospec=True) as mock_api:
