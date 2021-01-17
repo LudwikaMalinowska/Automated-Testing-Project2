@@ -65,6 +65,14 @@ class TestApiMonkeyPatch(unittest.TestCase):
             response = mock_api.api_delete(todo_id)
     
             assert_that(response).has_status_code(200)
+    
+    def test_method_api_delete_assert_that_response_status_code_is_not_200(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            todo_id = 1
+            mock_api.api_delete.return_value = {"status_code": 408}
+            response = mock_api.api_delete(todo_id)
+    
+            assert_that(response["status_code"]).is_not_equal_to(200)
 
     def test_method_api_delete_assert_that_not_called_exception(self):
         with patch('src.Api.Api', autospec=True) as mock_api:
