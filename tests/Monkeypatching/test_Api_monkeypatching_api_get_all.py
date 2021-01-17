@@ -44,8 +44,5 @@ class TestApiMonkeyPatch(unittest.TestCase):
                 mock_api.api_get_all.assert_called_once()
 
 
-
-
-
 if __name__ == '__main__':
     unittest.main()
