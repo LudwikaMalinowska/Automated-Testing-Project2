@@ -46,6 +46,13 @@ class TestApi(unittest.TestCase):
 
         assert_that(response["data"]).contains_key("title")
 
+    def test_method_api_get_by_id_assert_that_response_contains_key_completed(self):
+        todo_id = 1
+        self.temp.api_get_by_id = MagicMock(return_value={"data": todos[todo_id - 1], "status_code": 200})
+        response = self.temp.api_get_by_id(todo_id)
+
+        assert_that(response["data"]).contains_key("completed")
+
     def tearDown(self):
         self.temp = None
 
