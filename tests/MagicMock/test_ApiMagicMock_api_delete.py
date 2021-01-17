@@ -129,6 +129,14 @@ class TestApi(unittest.TestCase):
 
         assert_that(self.temp.api_delete).raises(ValueError).when_called_with(todo_id)
 
+    def test_method_api_delete_assert_that_response_returns_TypeError_when_called_with_id_not_int_exception(self):
+        todo_id = "1"
+        self.temp.api_delete = MagicMock(return_value={"status_code": 408}, side_effect=TypeError)
+
+        assert_that(self.temp.api_delete).raises(TypeError).when_called_with(todo_id)
+
+
+
 
     def tearDown(self):
         self.temp = None
