@@ -144,6 +144,14 @@ class TestApiMonkeyPatch(unittest.TestCase):
 
             assert_that(mock_api.api_get_by_id).raises(ValueError).when_called_with(todo_id)
 
+    def test_method_api_get_by_id_assert_that_response_returns_ValueError_when_called_with_id_300_exception(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            todo_id = 300
+            mock_api.api_get_by_id.return_value = {"status_code": 408}
+            mock_api.api_get_by_id.side_effect = ValueError
+
+            assert_that(mock_api.api_get_by_id).raises(ValueError).when_called_with(todo_id)
+
 
 if __name__ == '__main__':
     unittest.main()
