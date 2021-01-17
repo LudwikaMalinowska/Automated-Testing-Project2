@@ -95,6 +95,14 @@ class TestApi(unittest.TestCase):
 
         assert_that(response).has_status_code(200)
 
+    def test_method_api_get_by_id_assert_that_response_dont_have_status_code_200_exception(self):
+        todo_id = 1
+        self.temp.api_get_by_id = MagicMock(return_value={"status_code": 408})
+        response = self.temp.api_get_by_id(todo_id)
+
+        with self.assertRaises(AssertionError):
+            assert_that(response).has_status_code(200)
+
     def tearDown(self):
         self.temp = None
 
