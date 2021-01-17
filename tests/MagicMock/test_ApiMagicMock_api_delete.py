@@ -111,6 +111,13 @@ class TestApi(unittest.TestCase):
         response = self.temp.api_delete(todo_id)
         assert_that(response["deleted_data"]).has_completed(False)
 
+    def test_method_api_delete_assert_that_response_returns_Timeout_exception(self):
+        todo_id = 1
+        self.temp.api_delete = MagicMock(return_value={"status_code": 408}, side_effect=Timeout)
+
+        assert_that(self.temp.api_delete).raises(Timeout).when_called_with(todo_id)
+
+
     def tearDown(self):
         self.temp = None
 
