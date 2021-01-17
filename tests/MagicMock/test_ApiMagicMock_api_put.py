@@ -115,7 +115,7 @@ class TestApi(unittest.TestCase):
 
         assert_that(response["put_data"]).contains_key("userId", "title", "completed")
 
-    def test_method_api_put_assert_that_response_put_data_has_key_userId_1(self):
+    def test_method_api_put_assert_that_response_put_data_has_key_userId_and_its_1(self):
         todo_id = 1
         todo = {
             "userId": 1,
@@ -128,7 +128,7 @@ class TestApi(unittest.TestCase):
 
         assert_that(response["put_data"]).has_userId(1)
 
-    def test_method_api_put_assert_that_response_put_data_has_key_title_Lorem(self):
+    def test_method_api_put_assert_that_response_put_data_has_key_title_and_its_Lorem(self):
         todo_id = 1
         todo = {
             "userId": 1,
@@ -141,7 +141,7 @@ class TestApi(unittest.TestCase):
 
         assert_that(response["put_data"]).has_title("Lorem")
 
-    def test_method_api_put_assert_that_response_put_data_has_key_completed_False(self):
+    def test_method_api_put_assert_that_response_put_data_has_key_completed_and_its_False(self):
         todo_id = 1
         todo = {
             "userId": 1,
@@ -153,6 +153,19 @@ class TestApi(unittest.TestCase):
         response = self.temp.api_put(todo_id, todo)
 
         assert_that(response["put_data"]).has_completed(False)
+
+    def test_method_api_put_assert_that_response_has_key_put_id_and_its_1(self):
+        todo_id = 1
+        todo = {
+            "userId": 1,
+            "title": "Lorem",
+            "completed": False
+        }
+        self.temp.api_put = MagicMock(return_value={"put_id": todo_id,
+                                                    "put_data": todo, "status_code": 200})
+        response = self.temp.api_put(todo_id, todo)
+
+        assert_that(response).has_put_id(1)
 
     def tearDown(self):
         self.temp = None
