@@ -18,6 +18,12 @@ class TestApi(unittest.TestCase):
 
         assert_that(len(response["data"])).is_equal_to(200)
 
+    def test_method_api_get_all_assert_that_result_equal_todos(self):
+        self.temp.api_get_all = MagicMock(return_value={"data": todos, "status_code": 200})
+        response = self.temp.api_get_all()
+
+        assert_that(response["data"]).is_equal_to(todos)
+
     def tearDown(self):
         self.temp = None
 
