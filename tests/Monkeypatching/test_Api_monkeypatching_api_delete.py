@@ -1,10 +1,12 @@
 import unittest
 
 import requests
+from assertpy import assert_that
 from requests.exceptions import Timeout
 from unittest.mock import Mock, patch
 
 from src.Api import Api
+from src.todos import todos
 
 
 class TestApiMonkeyPatch(unittest.TestCase):
@@ -53,6 +55,16 @@ class TestApiMonkeyPatch(unittest.TestCase):
             mock_id.return_value = 1
             mock_api.api_delete(mock_id)
             mock_api.api_delete.assert_called_once_with(mock_id)
+    
+    def test_method_api_delete_assert_that_response_has_status_code_200(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            todo_id = 1
+            mock_api.api_delete.return_value = {"delete_id": todo_id,
+                                                "deleted_data": todos[todo_id - 1],
+                                                "status_code": 200}
+            response = mock_api.api_delete(todo_id)
+    
+            assert_that(response).has_status_code(200)
 
     def test_method_api_delete_assert_that_not_called_exception(self):
         with patch('src.Api.Api', autospec=True) as mock_api:
