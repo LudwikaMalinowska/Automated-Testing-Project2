@@ -208,7 +208,7 @@ class TestApiMonkeyPatch(unittest.TestCase):
 
             assert_that(mock_api.api_post).raises(ValueError).when_called_with(post_todo)
 
-    def test_method_api_post_assert_that_response_returns_ValueError_when_called_with_obj_without_userId_exception(self):
+    def test_method_api_post_assert_that_response_returns_ValueError_when_called_with_obj_without_key_userId_exception(self):
         with patch('src.Api.Api', autospec=True) as mock_api:
             post_todo = {
                 "title": "Lorem",
@@ -219,11 +219,22 @@ class TestApiMonkeyPatch(unittest.TestCase):
 
             assert_that(mock_api.api_post).raises(ValueError).when_called_with(post_todo)
 
-    def test_method_api_post_assert_that_response_returns_ValueError_when_called_with_obj_without_title_exception(self):
+    def test_method_api_post_assert_that_response_returns_ValueError_when_called_with_obj_without_key_title_exception(self):
         with patch('src.Api.Api', autospec=True) as mock_api:
             post_todo = {
                 "userId": 1,
                 "completed": False
+            }
+            mock_api.api_post.return_value = {"status_code": 408}
+            mock_api.api_post.side_effect = ValueError
+
+            assert_that(mock_api.api_post).raises(ValueError).when_called_with(post_todo)
+
+    def test_method_api_post_assert_that_response_returns_ValueError_when_called_with_obj_without_key_completed_exception(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            post_todo = {
+                "userId": 1,
+                "title": "Lorem",
             }
             mock_api.api_post.return_value = {"status_code": 408}
             mock_api.api_post.side_effect = ValueError
