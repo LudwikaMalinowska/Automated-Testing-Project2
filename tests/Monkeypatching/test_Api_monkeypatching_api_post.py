@@ -208,6 +208,17 @@ class TestApiMonkeyPatch(unittest.TestCase):
 
             assert_that(mock_api.api_post).raises(ValueError).when_called_with(post_todo)
 
+    def test_method_api_post_assert_that_response_returns_ValueError_when_called_with_obj_without_userId_exception(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            post_todo = {
+                "title": "Lorem",
+                "completed": False
+            }
+            mock_api.api_post.return_value = {"status_code": 408}
+            mock_api.api_post.side_effect = ValueError
+
+            assert_that(mock_api.api_post).raises(ValueError).when_called_with(post_todo)
+
 
 if __name__ == '__main__':
     unittest.main()
