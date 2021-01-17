@@ -45,6 +45,12 @@ class TestApi(unittest.TestCase):
 
         assert_that(response["status_code"]).is_equal_to(200)
 
+    def test_method_api_get_all_assert_that_status_code_is_not_200(self):
+        self.temp.api_get_all = MagicMock(return_value={"status_code": 408})
+        response = self.temp.api_get_all()
+
+        assert_that(response["status_code"]).is_not_equal_to(200)
+
     def tearDown(self):
         self.temp = None
 
