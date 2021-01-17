@@ -200,6 +200,17 @@ class TestApi(unittest.TestCase):
 
         assert_that(self.temp.api_put).raises(ValueError).when_called_with(todo_id, todo)
 
+    def test_method_api_put_assert_that_response_returns_ValueError_when_called_with_id_not_int_exception(self):
+        todo_id = "1"
+        todo = {
+            "userId": 1,
+            "title": "Lorem",
+            "completed": False
+        }
+        self.temp.api_put = MagicMock(return_value={"status_code": 408}, side_effect=TypeError)
+
+        assert_that(self.temp.api_put).raises(TypeError).when_called_with(todo_id, todo)
+
     def tearDown(self):
         self.temp = None
 
