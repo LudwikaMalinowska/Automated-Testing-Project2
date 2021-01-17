@@ -6,6 +6,7 @@ from unittest.mock import Mock, patch
 from assertpy import assert_that
 
 from src.Api import Api
+from src.todos import todos
 
 
 class TestApiMonkeyPatch(unittest.TestCase):
@@ -43,6 +44,12 @@ class TestApiMonkeyPatch(unittest.TestCase):
             mock_api.api_get_all()
             with self.assertRaises(AssertionError):
                 mock_api.api_get_all.assert_called_once()
+
+    def test_method_api_get_all_assert_that_result_length_equal_200(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            mock_api.api_get_all.return_value = {"data": todos,  "status_code": 200}
+            response = mock_api.api_get_all()
+            assert_that(len(response["data"])).is_equal_to(200)
 
     def test_method_api_get_all_assert_that_raises_Timeout(self):
         with patch('src.Api.Api', autospec=True) as mock_api:
