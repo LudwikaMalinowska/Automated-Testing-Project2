@@ -51,6 +51,11 @@ class TestApi(unittest.TestCase):
 
         assert_that(response["status_code"]).is_not_equal_to(200)
 
+    def test_method_api_get_all_assert_that_side_effect_is_Timeout(self):
+        self.temp.api_get_all = MagicMock(side_effect=Timeout)
+
+        assert_that(self.temp.api_get_all.side_effect).is_equal_to(Timeout)
+
     def tearDown(self):
         self.temp = None
 
