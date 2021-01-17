@@ -97,6 +97,13 @@ class TestApi(unittest.TestCase):
         response = self.temp.api_delete(todo_id)
         assert_that(response["deleted_data"]).has_id(1)
 
+    def test_method_api_delete_assert_that_response_deleted_data_has_key_title_and_its_delectus_aut_autem(self):
+        todo_id = 1
+        self.temp.api_delete = MagicMock(return_value={"delete_id": todo_id, "deleted_data": todos[todo_id - 1],
+                                                       "status_code": 200})
+        response = self.temp.api_delete(todo_id)
+        assert_that(response["deleted_data"]).has_title("delectus aut autem")
+
     def tearDown(self):
         self.temp = None
 
