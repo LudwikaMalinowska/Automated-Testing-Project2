@@ -95,6 +95,19 @@ class TestApiMonkeyPatch(unittest.TestCase):
 
             assert_that(response).has_status_code(200)
 
+    def test_method_api_post_assert_that_response_status_code_is_not_200(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            todo_id = 1
+            todo = {
+                "userId": 1,
+                "title": "Lorem",
+                "completed": False
+            }
+            mock_api.api_put.return_value = {"status_code": 408}
+            response = mock_api.api_put(todo_id, todo)
+
+            assert_that(response["status_code"]).is_not_equal_to(200)
+
     def test_method_api_put_assert_that_not_called_exception(self):
         with patch('src.Api.Api', autospec=True) as mock_api:
             mock_id = Mock()
