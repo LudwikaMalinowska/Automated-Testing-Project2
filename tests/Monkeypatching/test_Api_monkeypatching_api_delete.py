@@ -182,6 +182,14 @@ class TestApiMonkeyPatch(unittest.TestCase):
             mock_api.api_delete.side_effect = TypeError
     
             assert_that(mock_api.api_delete).raises(TypeError).when_called_with(todo_id)
+    
+    def test_method_api_delete_assert_that_response_returns_AttributeError_when_called_with_None_exception(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            todo_id = None
+            mock_api.api_delete.return_value = {"status_code": 408}
+            mock_api.api_delete.side_effect = AttributeError
+    
+            assert_that(mock_api.api_delete).raises(AttributeError).when_called_with(todo_id)
 
 
 if __name__ == '__main__':
