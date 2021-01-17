@@ -167,6 +167,17 @@ class TestApi(unittest.TestCase):
 
         assert_that(response).has_put_id(1)
 
+    def test_method_api_put_assert_that_response_returns_Timeout_exception(self):
+        todo_id = 1
+        todo = {
+            "userId": 1,
+            "title": "Lorem",
+            "completed": False
+        }
+        self.temp.api_put = MagicMock(return_value={"status_code": 408}, side_effect=Timeout)
+
+        assert_that(self.temp.api_put).raises(Timeout).when_called_with(todo_id, todo)
+
     def tearDown(self):
         self.temp = None
 
