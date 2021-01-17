@@ -133,6 +133,18 @@ class TestApi(unittest.TestCase):
 
         assert_that(response).is_instance_of(dict)
 
+    def test_method_api_post_assert_that_response_status_code_is_not_200(self):
+        post_todo = {
+            "userId": 1,
+            "title": "Lorem",
+            "completed": False
+        }
+        self.temp.api_post = MagicMock(return_value={"status_code": 408})
+        response = self.temp.api_post(post_todo)
+
+        assert_that(response["status_code"]).is_not_equal_to(200)
+
+
 
     def tearDown(self):
         self.temp = None
