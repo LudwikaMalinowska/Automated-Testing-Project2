@@ -69,6 +69,13 @@ class TestApiMonkeyPatch(unittest.TestCase):
             }
             assert_that(response["data"]).is_equal_to(expected_todo)
 
+    def test_method_api_get_by_id_assert_that_response_contains_all_keys_userId_id_title_completed(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            todo_id = 1
+            mock_api.api_get_by_id.return_value = {"data": todos[todo_id - 1], "status_code": 200}
+            response = mock_api.api_get_by_id(todo_id)
+            assert_that(response["data"]).contains_key("userId", "id", "title", "completed")
+
     def test_method_api_get_by_id_assert_that_not_called_exception(self):
         with patch('src.Api.Api', autospec=True) as mock_api:
             mock_id = Mock()
