@@ -160,6 +160,14 @@ class TestApiMonkeyPatch(unittest.TestCase):
 
             assert_that(mock_api.api_get_by_id).raises(TypeError).when_called_with(todo_id)
 
+    def test_method_api_get_by_id_assert_that_response_returns_AttributeError_when_called_with_id_None_exception(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            todo_id = None
+            mock_api.api_get_by_id.return_value = {"status_code": 408}
+            mock_api.api_get_by_id.side_effect = AttributeError
+
+            assert_that(mock_api.api_get_by_id).raises(AttributeError).when_called_with(todo_id)
+
 
 if __name__ == '__main__':
     unittest.main()
