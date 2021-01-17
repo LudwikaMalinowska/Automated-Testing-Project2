@@ -200,6 +200,14 @@ class TestApiMonkeyPatch(unittest.TestCase):
             with self.assertRaises(TypeError):
                 mock_api.api_post()
 
+    def test_method_api_post_assert_that_response_returns_ValueError_when_called_with_empty_obj_exception(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            post_todo = {}
+            mock_api.api_post.return_value = {"status_code": 408}
+            mock_api.api_post.side_effect = ValueError
+
+            assert_that(mock_api.api_post).raises(ValueError).when_called_with(post_todo)
+
 
 if __name__ == '__main__':
     unittest.main()
