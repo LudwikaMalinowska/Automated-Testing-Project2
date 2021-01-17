@@ -3,7 +3,7 @@ from unittest.mock import MagicMock
 from assertpy import assert_that
 
 from src.Api import Api
-from todos import todos
+from src.todos import todos
 
 
 class TestApi(unittest.TestCase):

@@ -4,7 +4,7 @@ from unittest.mock import Mock
 from requests import Timeout
 
 from src.Api import Api
-from todos import todos
+from src.todos import todos
 
 class TestApi(unittest.TestCase):
 
