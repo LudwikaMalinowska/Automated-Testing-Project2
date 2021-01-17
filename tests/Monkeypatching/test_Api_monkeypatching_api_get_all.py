@@ -84,6 +84,12 @@ class TestApiMonkeyPatch(unittest.TestCase):
             response = mock_api.api_get_all()
             assert_that(response["status_code"]).is_not_equal_to(200)
 
+    def test_method_api_get_all_assert_that_response_is_instance_of_dict(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            mock_api.api_get_all.return_value = {"data": todos,  "status_code": 200}
+            response = mock_api.api_get_all()
+            assert_that(response).is_instance_of(dict)
+
     def test_method_api_get_all_assert_that_raises_Timeout(self):
         with patch('src.Api.Api', autospec=True) as mock_api:
             mock_api.api_get_all.return_value = {"status_code": 408}
