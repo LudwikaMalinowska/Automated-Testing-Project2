@@ -229,7 +229,7 @@ class TestApi(unittest.TestCase):
 
         assert_that(self.temp.api_put).raises(ValueError).when_called_with(todo_id, todo)
 
-    def test_method_api_put_assert_that_response_returns_ValueError_when_called_with_obj_without_userId_exception(self):
+    def test_method_api_put_assert_that_response_returns_ValueError_when_called_with_obj_without_key_userId_exception(self):
         todo_id = 1
         todo = {
             "title": "Lorem",
@@ -239,11 +239,21 @@ class TestApi(unittest.TestCase):
 
         assert_that(self.temp.api_put).raises(ValueError).when_called_with(todo_id, todo)
 
-    def test_method_api_put_assert_that_response_returns_ValueError_when_called_with_obj_without_title_exception(self):
+    def test_method_api_put_assert_that_response_returns_ValueError_when_called_with_obj_without_key_title_exception(self):
         todo_id = 1
         todo = {
             "userId": 1,
             "completed": False
+        }
+        self.temp.api_put = MagicMock(return_value={"status_code": 408}, side_effect=ValueError)
+
+        assert_that(self.temp.api_put).raises(ValueError).when_called_with(todo_id, todo)
+
+    def test_method_api_put_assert_that_response_returns_ValueError_when_called_with_obj_without_key_completed_exception(self):
+        todo_id = 1
+        todo = {
+            "userId": 1,
+            "title": "Lorem",
         }
         self.temp.api_put = MagicMock(return_value={"status_code": 408}, side_effect=ValueError)
 
