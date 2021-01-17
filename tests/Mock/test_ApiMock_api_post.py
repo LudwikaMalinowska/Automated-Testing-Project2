@@ -186,6 +186,16 @@ class TestApi(unittest.TestCase):
         self.temp.api_post.return_value = {"status_code": 408}
         self.temp.api_post.side_effect = ValueError
 
+    def test_method_api_post_assert_that_response_returns_ValueError_when_called_with_obj_without_title_exception(
+            self):
+        self.temp.api_post = Mock()
+        todo = {
+            "userId": 1,
+            "completed": False
+        }
+        self.temp.api_post.return_value = {"status_code": 408}
+        self.temp.api_post.side_effect = ValueError
+
         assert_that(self.temp.api_post).raises(ValueError).when_called_with(todo)
 
 
