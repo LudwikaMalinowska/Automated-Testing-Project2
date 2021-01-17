@@ -100,6 +100,17 @@ class TestApi(unittest.TestCase):
 
         assert_that(response["posted_data"]).has_userId(1)
 
+    def test_method_api_post_assert_that_response_posted_data_has_key_title_Lorem(self):
+        post_todo = {
+            "userId": 1,
+            "title": "Lorem",
+            "completed": False
+        }
+        self.temp.api_post = MagicMock(return_value={"posted_data": post_todo, "status_code": 200})
+        response = self.temp.api_post(post_todo)
+
+        assert_that(response["posted_data"]).has_title("Lorem")
+
 
     def tearDown(self):
         self.temp = None
