@@ -66,7 +66,12 @@ class TestApi(unittest.TestCase):
         self.temp.api_get_all = MagicMock(return_value={"data": todos, "status_code": 200})
 
         with self.assertRaises(AssertionError):
-            assert_that(self.temp.api_get_all).raises(Timeout)
+            self.assertRaises(Timeout, self.temp.api_get_all)
+
+    def test_method_api_get_all_assert_that_raises_Timeout_exception(self):
+        self.temp.api_get_all = MagicMock(side_effect=Timeout, return_value={"status_code": 408})
+
+        assert_that(self.temp.api_get_all).raises(Timeout)
 
 
 
