@@ -135,6 +135,19 @@ class TestApiMonkeyPatch(unittest.TestCase):
             response = mock_api.api_put(todo_id, todo)
             assert_that(response["put_data"]).contains_key("userId", "title", "completed")
 
+    def test_method_api_put_assert_that_response_is_instance_of_dict(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            todo_id = 1
+            todo = {
+                "userId": 1,
+                "title": "Lorem",
+                "completed": False
+            }
+            mock_api.api_put.return_value = {"put_id": todo_id,
+                                             "put_data": todo, "status_code": 200}
+            response = mock_api.api_put(todo_id, todo)
+            assert_that(response).is_instance_of(dict)
+
     def test_method_api_put_assert_that_not_called_exception(self):
         with patch('src.Api.Api', autospec=True) as mock_api:
             mock_id = Mock()
