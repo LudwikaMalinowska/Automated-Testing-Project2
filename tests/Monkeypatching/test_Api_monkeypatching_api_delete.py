@@ -73,6 +73,16 @@ class TestApiMonkeyPatch(unittest.TestCase):
             response = mock_api.api_delete(todo_id)
     
             assert_that(response["status_code"]).is_not_equal_to(200)
+    
+    def test_method_api_delete_assert_that_response_is_instance_of_dict(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            todo_id = 1
+            mock_api.api_delete.return_value = {"delete_id": todo_id,
+                                                "deleted_data": todos[todo_id - 1],
+                                                "status_code": 200}
+            response = mock_api.api_delete(todo_id)
+    
+            assert_that(response).is_instance_of(dict)
 
     def test_method_api_delete_assert_that_not_called_exception(self):
         with patch('src.Api.Api', autospec=True) as mock_api:
