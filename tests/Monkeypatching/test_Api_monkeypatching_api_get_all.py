@@ -72,6 +72,12 @@ class TestApiMonkeyPatch(unittest.TestCase):
 
             assert_that(mock_keys).is_equal_to(expected_keys)
 
+    def test_method_api_get_all_assert_that_status_code_200(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            mock_api.api_get_all.return_value = {"data": todos,  "status_code": 200}
+            response = mock_api.api_get_all()
+            assert_that(response).has_status_code(200)
+
     def test_method_api_get_all_assert_that_raises_Timeout(self):
         with patch('src.Api.Api', autospec=True) as mock_api:
             mock_api.api_get_all.return_value = {"status_code": 408}
