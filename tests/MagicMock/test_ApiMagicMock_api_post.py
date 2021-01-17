@@ -56,6 +56,17 @@ class TestApi(unittest.TestCase):
 
         assert_that(response["posted_data"]).contains_key("userId")
 
+    def test_method_api_post_assert_that_response_posted_data_contain_key_title(self):
+        post_todo = {
+            "userId": 1,
+            "title": "Lorem",
+            "completed": False
+        }
+        self.temp.api_post = MagicMock(return_value={"posted_data": post_todo, "status_code": 200})
+        response = self.temp.api_post(post_todo)
+
+        assert_that(response["posted_data"]).contains_key("title")
+
 
     def tearDown(self):
         self.temp = None
