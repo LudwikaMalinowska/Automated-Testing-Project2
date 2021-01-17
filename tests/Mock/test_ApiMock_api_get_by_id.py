@@ -1,10 +1,10 @@
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 from assertpy import assert_that
 from requests import Timeout
 
 from src.Api import Api
-from tests.Mock.todos import todos
+from todos import todos
 
 class TestApi(unittest.TestCase):
 
