@@ -160,6 +160,16 @@ class TestApi(unittest.TestCase):
 
         assert_that(self.temp.api_post).raises(ValueError).when_called_with(post_todo)
 
+    def test_method_api_post_assert_that_response_returns_ValueError_when_called_with_obj_without_userId_exception(
+            self):
+        post_todo = {
+            "title": "Lorem",
+            "completed": False
+        }
+        self.temp.api_post = MagicMock(return_value={"status_code": 408}, side_effect=ValueError)
+
+        assert_that(self.temp.api_post).raises(ValueError).when_called_with(post_todo)
+
     def tearDown(self):
         self.temp = None
 
