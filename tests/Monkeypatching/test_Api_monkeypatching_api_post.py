@@ -1,6 +1,7 @@
 import unittest
 
 import requests
+from assertpy import assert_that
 from requests.exceptions import Timeout
 from unittest.mock import Mock, patch
 
@@ -81,6 +82,17 @@ class TestApiMonkeyPatch(unittest.TestCase):
             }
             mock_api.api_post(mock_data)
             mock_api.api_post.assert_called_once_with(mock_data)
+
+    def test_method_api_post_assert_that_response_has_status_code_200(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            post_todo = {
+                "userId": 1,
+                "title": "Lorem",
+                "completed": False
+            }
+            mock_api.api_post.return_value = {"posted_data": post_todo, "status_code": 200}
+            response = mock_api.api_post(post_todo)
+            assert_that(response).has_status_code(200)
 
     def test_method_api_post_assert_that_not_called_exception(self):
         with patch('src.Api.Api', autospec=True) as mock_api:
