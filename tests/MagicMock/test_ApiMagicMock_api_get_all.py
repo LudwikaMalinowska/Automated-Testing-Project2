@@ -62,6 +62,12 @@ class TestApi(unittest.TestCase):
 
         assert_that(response).is_instance_of(dict)
 
+    def test_method_api_get_all_assert_that_dont_raise_timeout(self):
+        self.temp.api_get_all = MagicMock(return_value={"data": todos, "status_code": 200})
+
+        with self.assertRaises(AssertionError):
+            assert_that(self.temp.api_get_all).raises(Timeout)
+
 
 
     def tearDown(self):
