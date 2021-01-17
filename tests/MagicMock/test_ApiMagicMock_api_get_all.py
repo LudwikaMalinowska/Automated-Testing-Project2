@@ -33,11 +33,17 @@ class TestApi(unittest.TestCase):
     def test_method_api_get_all_assert_that_list_of_keys_equal_to_expected_list_of_keys(self):
         self.temp.api_get_all = MagicMock(return_value={"data": todos, "status_code": 200})
         response = self.temp.api_get_all()
-        
+
         expected_keys = ["userId", "id", "title", "completed"]
         mock_keys = list(response["data"][0].keys())
 
         self.assertListEqual(mock_keys, expected_keys)
+
+    def test_method_api_get_all_assert_that_status_code_200(self):
+        self.temp.api_get_all = MagicMock(return_value={"data": todos, "status_code": 200})
+        response = self.temp.api_get_all()
+
+        assert_that(response["status_code"]).is_equal_to(200)
 
     def tearDown(self):
         self.temp = None
