@@ -116,6 +116,17 @@ class TestApiMonkeyPatch(unittest.TestCase):
             response = mock_api.api_post(post_todo)
             assert_that(response["posted_data"]).is_equal_to(post_todo)
 
+    def test_method_api_post_assert_that_response_is_instance_of_dict(self):
+        with patch('src.Api.Api', autospec=True) as mock_api:
+            post_todo = {
+                "userId": 1,
+                "title": "Lorem",
+                "completed": False
+            }
+            mock_api.api_post.return_value = {"posted_data": post_todo, "status_code": 200}
+            response = mock_api.api_post(post_todo)
+            assert_that(response).is_instance_of(dict)
+
     def test_method_api_post_assert_that_not_called_exception(self):
         with patch('src.Api.Api', autospec=True) as mock_api:
             mock_data = Mock()
